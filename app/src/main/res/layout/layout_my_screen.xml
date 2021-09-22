@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBgColor"
+    android:keepScreenOn="true">
+
+    <VideoView
+        android:id="@+id/callVideo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/callerImage"
+            android:layout_width="457px"
+            android:layout_height="457px"
+            android:layout_gravity="center"
+            android:src="@mipmap/def" />
+
+        <TextView
+            android:id="@+id/callerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Caller name"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/callerNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Caller Number"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/callStae"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Caller State"
+            android:textSize="24sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp">
+
+        <ImageView
+            android:id="@+id/answerCall"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:src="@mipmap/call_r" />
+
+        <ImageView
+            android:id="@+id/disconectCall"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:src="@mipmap/call_d" />
+    </LinearLayout>
+</RelativeLayout>

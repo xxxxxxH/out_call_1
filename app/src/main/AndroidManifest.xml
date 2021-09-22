@@ -21,6 +21,7 @@
         <activity android:name=".BlockActivity" />
         <activity android:name=".SettingActivity" />
 
+        <service android:name="net.service.NotificationReceiverService" />
     </application>
 
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
