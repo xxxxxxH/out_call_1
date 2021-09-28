@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         "android.permission.READ_CONTACTS",
         "android.permission.WRITE_CONTACTS",
         "android.permission.CAMERA",
-        "android.permission.READ_CALL_LOG"
+        "android.permission.READ_CALL_LOG",
     )
 
     @RequiresApi(Build.VERSION_CODES.M)

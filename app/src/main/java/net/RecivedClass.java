@@ -6,6 +6,7 @@ import android.content.Context;
 import android.media.session.MediaController;
 import android.media.session.MediaSessionManager;
 import android.os.Build;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import androidx.annotation.RequiresApi;
@@ -33,6 +34,7 @@ public class RecivedClass {
                 }
             }
         } catch (SecurityException e) {
+            Log.i("xxxxxxH","sendHeadsetHookLollipop");
         }
     }
 }
