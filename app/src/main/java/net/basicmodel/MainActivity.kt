@@ -58,28 +58,10 @@ class MainActivity : AppCompatActivity() {
                     Uri.parse("package:" + this.packageName),
                 )
                 startActivityForResult(intent, 0)
-            } else {
-                notification()
             }
         }
     }
 
-    private fun notification() {
-        if (NotificationManagerCompat.from(this).areNotificationsEnabled()) {
-            val localIntent = Intent()
-            //直接跳转到应用通知设置的代码：
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //8.0及以上
-                localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                localIntent.action = "android.settings.APPLICATION_DETAILS_SETTINGS"
-                localIntent.data = Uri.fromParts("package", packageName, null)
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { //5.0以上到8.0以下
-                localIntent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
-                localIntent.putExtra("app_package", packageName)
-                localIntent.putExtra("app_uid", applicationInfo.uid)
-            }
-            startActivity(localIntent)
-        }
-    }
 
     private fun requestPermission() {
         PermissionRequest.getInstance().build(this)
@@ -133,15 +115,13 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == 0) {
+        if (requestCode == 0) {
             if (!Settings.canDrawOverlays(this)) {
                 val intent = Intent(
                     Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                     Uri.parse("package:" + this.packageName),
                 )
                 startActivityForResult(intent, 0)
-            } else {
-                notification()
             }
         }
     }
