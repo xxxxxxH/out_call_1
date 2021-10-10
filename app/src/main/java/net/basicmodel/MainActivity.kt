@@ -32,13 +32,24 @@ class MainActivity : AppCompatActivity() {
     var wm: WindowManager? = null
     private var audioManager: AudioManager? = null
     var permissions = arrayOf(
-        "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.ANSWER_PHONE_CALLS",
         "android.permission.READ_PHONE_STATE",
         "android.permission.READ_CONTACTS",
         "android.permission.WRITE_CONTACTS",
+        "android.permission.ACTION_MANAGE_OVERLAY_PERMISSION",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.CALL_PHONE",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.VIBRATE",
         "android.permission.CAMERA",
+        "android.permission.FLASHLIGHT",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
         "android.permission.READ_CALL_LOG",
+        "android.permission.MEDIA_CONTENT_CONTROL"
     )
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -47,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         MMKV.initialize(this)
         requestPermission()
-        send()
+        topShow()
     }
 
     private fun topShow() {
@@ -68,7 +79,6 @@ class MainActivity : AppCompatActivity() {
             .requestPermission(object : PermissionRequest.PermissionListener {
                 override fun permissionGranted() {
                     initView()
-                    topShow()
                 }
 
                 override fun permissionDenied(permissions: ArrayList<String>?) {
@@ -76,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun permissionNeverAsk(permissions: ArrayList<String>?) {
-                    finish()
+//                    finish()
                 }
             }, permissions)
     }

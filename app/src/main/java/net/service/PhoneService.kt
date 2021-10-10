@@ -1,8 +1,12 @@
 package net.service
 
 import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
+import android.graphics.PixelFormat
 import android.media.AudioManager
 import android.os.Build
 import android.os.IBinder
@@ -21,6 +25,7 @@ import com.tencent.mmkv.MMKV
 import net.DisconectClass
 import net.RecivedClass
 import net.basicmodel.R
+import net.utils.PhoneManager
 import net.utils.ContractsUtil
 import net.utils.ResourceManager
 import java.util.*
@@ -41,6 +46,23 @@ class PhoneService : Service() {
     @SuppressLint("WrongConstant")
     override fun onCreate() {
         super.onCreate()
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            val channel =
+                NotificationChannel(
+                    "CHANNEL_ID",
+                    "CHANNEL_NAME",
+                    NotificationManager.IMPORTANCE_HIGH
+                )
+            val manager: NotificationManager = getSystemService(
+                NOTIFICATION_SERVICE
+            ) as NotificationManager
+            manager.createNotificationChannel(channel)
+            val notification: Notification = Notification.Builder(
+                applicationContext, "CHANNEL_ID"
+            ).build()
+            startForeground(1, notification)
+        }
 
         wm = getSystemService("window") as WindowManager
         Log.i("xxxxxxH", "wm = $wm")
@@ -104,19 +126,23 @@ class PhoneService : Service() {
         }
 
         disconect.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= 26) {
-                DisconectClass(this).rejectCall(this)
-            } else {
-                DisconectClass(this).disconnectCall()
-            }
+            PhoneManager.get().disconnect(this)
             wm!!.removeViewImmediate(view)
         }
         answer.setOnClickListener {
             RecivedClass(this).sendHeadsetHookLollipop()
+            PhoneManager.get().answer(this)
             wm!!.removeViewImmediate(view)
         }
         audioManager!!.setStreamVolume(3, 0, 0)
-        wm!!.addView(view, WindowManager.LayoutParams(-1, -1, LAYOUT_FLAG, 19399552, -3))
+        val params = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT,
+            LAYOUT_FLAG,
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            PixelFormat.TRANSLUCENT
+        )
+        wm!!.addView(view, params)
     }
 
     private fun waitingData(data: ArrayList<*>, max: Int) {
